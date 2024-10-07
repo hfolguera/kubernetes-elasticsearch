@@ -1,28 +1,26 @@
 # kubernetes-elasticsearch
-Repository to deploy Elasticsearch stak (ELK) on Kubernetes
+Repository to deploy Elasticsearch cluster and Kibana based on ECK (Elastic Cloud on Kubernetes)
 
 ## Instalation
-### Create Volume
+
+### Deploy ECK Operator
 ```
-kubectl apply -f elasticsearch-volume.yaml
+kubectl create -f crds.yaml
+kubectl apply -f operator.yaml
 ```
 
-### Install Elasticsearch CRDs
+You can verify the operator deployment with...
 ```
-kubectl create -f elasticsearch-crds.yaml
+kubectl -n elastic-system logs -f statefulset.apps/elastic-operator
 ```
 
-### Install Elasticsearch Operator
+### Deploy Elasticsearch cluster
 ```
-kubectl apply -f elasticsearch-operator.yaml
+kubectl apply -f elasticsearch-deployment.yaml
 ```
 
 	By default, all resources are created under elastic-system namespace
 
-### Deploy Elasticsearch instance
-```
-kubectl apply -f elasticsearch-deployment.yaml
-```
 
 ### Deploy Kibana instance
 ```
