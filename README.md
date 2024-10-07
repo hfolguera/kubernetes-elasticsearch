@@ -29,6 +29,6 @@ kubectl apply -f kibana-deployment.yaml
 
 Use `elastic` as your user for credentials. Password can be get with:
 ```
-kubectl get secret elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo
+kubectl get secret elasticsearch-es-elastic-user -o go-template='{{.data.elastic | base64decode}}' -n elastic-system; echo
 ```
 
